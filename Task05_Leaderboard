@@ -1,1 +1,48 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
+class Player {
+    String name;
+    int points;
+    int goalDifference;
+
+    Player(String name, int points, int goalDifference) {
+        this.name = name;
+        this.points = points;
+        this.goalDifference = goalDifference;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (Points: " + points
+                + ", Goal Difference: " + goalDifference + ")";
+    }
+}
+
+public class LeaderboardDemo {
+    public static void main(String[] args) {
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("Eagles", 9, 6));
+        players.add(new Player("Bisons", 9, 4));
+        players.add(new Player("Panthers", 9, 4));
+        players.add(new Player("Cobras", 6, 1));
+
+        Comparator<Player> ranking = Comparator
+                .comparingInt((Player p) -> p.points).reversed()
+                .thenComparing(
+                    Comparator.comparingInt(
+                        (Player p) -> p.goalDifference
+                    ).reversed()
+                )
+                .thenComparing(p -> p.name);
+
+        players.sort(ranking);
+
+        System.out.println("LEADERBOARD");
+        int rank = 1;
+        for (Player player : players) {
+            System.out.println(rank++ + ". " + player);
+        }
+    }
+}

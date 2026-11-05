@@ -1,1 +1,36 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
 
+public class RedesignComparison {
+    public static void main(String[] args) {
+        int size = 10000;
+        int repetitions = 5000;
+
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        ArrayList<Integer> arrayList = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            linkedList.add(i);
+            arrayList.add(i);
+        }
+
+        long start = System.nanoTime();
+        long linkedChecksum = 0;
+        for (int i = 0; i < repetitions; i++) {
+            linkedChecksum += linkedList.get(i % size);
+        }
+        long linkedTime = System.nanoTime() - start;
+
+        start = System.nanoTime();
+        long arrayChecksum = 0;
+        for (int i = 0; i < repetitions; i++) {
+            arrayChecksum += arrayList.get(i % size);
+        }
+        long arrayTime = System.nanoTime() - start;
+
+        System.out.println("LinkedList indexed access: " + linkedTime + " ns");
+        System.out.println("ArrayList indexed access: " + arrayTime + " ns");
+        System.out.println("Checksums: " + linkedChecksum + ", " + arrayChecksum);
+        System.out.println("Redesign comparison completed.");
+    }
+}

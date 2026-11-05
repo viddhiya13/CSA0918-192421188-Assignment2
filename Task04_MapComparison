@@ -1,1 +1,32 @@
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
+public class PharmacyInventory {
+    public static void main(String[] args) {
+        Map<Integer, String> hashMap = new HashMap<>();
+        Map<Integer, String> treeMap = new TreeMap<>();
+        Map<Integer, String> linkedHashMap = new LinkedHashMap<>();
+
+        int[] codes = {103, 101, 105, 102, 104};
+        String[] medicines = {
+            "Paracetamol", "Vitamin C", "Cetirizine",
+            "Antacid", "Cough Syrup"
+        };
+
+        for (int i = 0; i < codes.length; i++) {
+            hashMap.put(codes[i], medicines[i]);
+            treeMap.put(codes[i], medicines[i]);
+            linkedHashMap.put(codes[i], medicines[i]);
+        }
+
+        System.out.println("HashMap: " + hashMap);
+        System.out.println("TreeMap (sorted by code): " + treeMap);
+        System.out.println("LinkedHashMap (insertion order): " + linkedHashMap);
+
+        int searchCode = 103;
+        System.out.println("Search result for " + searchCode + ": "
+                + hashMap.getOrDefault(searchCode, "Medicine not found"));
+    }
+}

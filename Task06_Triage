@@ -1,1 +1,36 @@
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
+class Patient {
+    String name;
+    int severity;
+    int arrivalOrder;
+
+    Patient(String name, int severity, int arrivalOrder) {
+        this.name = name;
+        this.severity = severity;
+        this.arrivalOrder = arrivalOrder;
+    }
+}
+
+public class Triage {
+    public static void main(String[] args) {
+        PriorityQueue<Patient> queue = new PriorityQueue<>(
+            Comparator.comparingInt((Patient p) -> p.severity)
+                      .thenComparingInt(p -> p.arrivalOrder)
+        );
+
+        queue.add(new Patient("Ravi", 3, 1));
+        queue.add(new Patient("Meena", 1, 2));
+        queue.add(new Patient("Kumar", 1, 3));
+        queue.add(new Patient("Lata", 2, 4));
+        queue.add(new Patient("Asha", 5, 5));
+
+        System.out.println("Patient treatment order:");
+        while (!queue.isEmpty()) {
+            Patient patient = queue.poll();
+            System.out.println(patient.name
+                    + " - Severity Level: " + patient.severity);
+        }
+    }
+}
